@@ -1868,6 +1868,7 @@ class Mesh:
                 vmin=None,
                 attr=None,
                 elec_color='k',
+                elec_size = 10.,
                 use_pyvista=True,
                 background_color=(0.8,0.8,0.8),
                 pvslices=([],[],[]),
@@ -2152,7 +2153,7 @@ class Mesh:
                 try:
                     points = self.elec.copy()[~iremote,:]
                     pvelec = pv.PolyData(points)
-                    ax.add_mesh(pvelec, color=elec_color, point_size=10.,
+                    ax.add_mesh(pvelec, color=elec_color, point_size=elec_size,
                                 render_points_as_spheres=True)
                 except AttributeError as e:
                     print("Could not plot 3d electrodes, error = "+str(e))

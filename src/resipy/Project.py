@@ -3908,7 +3908,7 @@ class Project(object): # Project master class instanciated by the GUI
     def showResults(self, index=0, ax=None, edge_color='none', attr='',
                     sens=True, color_map='viridis', zlim=None, clabel=None,
                     doi=False, doiSens=False, contour=False, cropMaxDepth=True,
-                    clipContour=True, clipCorners=False, use_pyvista=True, background_color=(0.8,0.8,0.8),
+                    clipContour=True, clipCorners=False, use_pyvista=True, background_color=(1.,1.,1.),
                     pvslices=([],[],[]), pvthreshold=None, pvgrid=True,
                     pvcontour=[], pvdelaunay3d=False, **kwargs):
         """Show the inverteds section.
