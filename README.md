@@ -188,3 +188,23 @@ macOS Mojave and before: [![mac](https://img.shields.io/badge/macOS%20Mojave%206
 Zenodo project DOI: [![zenodo doi](https://zenodo.org/badge/DOI/10.5281/zenodo.2530059.svg)](https://doi.org/10.5281/zenodo.2530059)
 
 Coverage (part of the code covered by the CI test): [![coverage report](https://gitlab.com/hkex/resipy/badges/master/coverage.svg)](https://gitlab.com/hkex/resipy/-/commits/master)
+
+
+#Installation with gis functions
+###CONDA venv 3.8
+
+conda install -c conda-forge pyvista
+
+pip install pyqt5
+
+conda install -c conda-forge pyvistaqt
+
+conda install gdal 
+
+conda install -c conda-forge rasterio
+
+conda install vtk
+
+conda install -c conda-forge gemgis
+
+conda install xarray

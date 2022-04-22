@@ -1,6 +1,8 @@
 import sys
 sys.path.append("C:/Users/fnk/PycharmProjects/resipy_fnk/src")
 from resipy import Project
+import geopandas as gpd
+import pandas as pd
 import pyvista as pv
 import time
 import matplotlib.pyplot as plt
@@ -9,6 +11,7 @@ if __name__ == '__main__':
     timings = {}
     t0 = time.time()
     k = Project(typ='R2')
+
     # k.createPseudo3DSurvey(r'C:/Users/fnk/PycharmProjects/resipy_fnk/src/examples/test/data',
     #                        lineSpacing=20, ftype="ResInv")
     # k.importPseudo3DElec(r'C:/Users/fnk/PycharmProjects/Resipy_interpolate/topofiles/electrodes3d.csv')
@@ -58,14 +61,32 @@ if __name__ == '__main__':
     src = rasterio.open(map)
     array = src.read(1)
 
+    gdf = gpd.read_file("Maps/DEPONIGRENSE.gpkg")
+    gdf_B = gdf.boundary
+    gdf_B.boundary.to_file('deponigrense.shp')
+    gdf = gpd.read_file("Maps/DEPONIGRENSE.gpkg")
+    gdf_lineslines = gg.visualization.create(gdf)
+    gdf.boundary.plot()
+    plt.show()
     texture = pv.numpy_to_texture(array)
     # topo.translate([0,0,-40])
     ax = pv.Plotter()
     ax.add_mesh(topo, texture=texture)
+    ax.add_lines(gdf.boundary.values)
+    ax.add_mesh(gdf.boundary)
     # p.add_mesh(mesh=topo, cmap='gist_earth', scalar_bar_args=sargs, clim=[0, 500])
     ax.set_background('white')
     ax.show_grid(color='black')
     # p.show(cpos='xy')
+    k.showPseudo()
+    # k.showInvError(index=0)
+    # k.showPseudoInvError(index=0)
+    # k.showResults(index=0, edge_color="none", contour=True, sens=True, attr="Resistivity(log10)", vmin=1.2, vmax=2.5, color_map="viridis", sensPrc=0.50, doi=False, doiSens=False)
 
     k.showResults(index=-1, ax=ax, cropMesh=False, color_map='jet', vmin=0.8, vmax=4, cropMaxDepth=False, contour=True,
-                  use_pyvista=True, elec_color="k", elec_size=4., pvshow=True)
+                    elec_color="k", elec_size=4., pvshow=True)
+
+    k.showResults(index=0, cropMesh=False, color_map='jet', vmin=0.8, vmax=4, cropMaxDepth=False, contour=True,
+                  elec_color="k", elec_size=4., pvshow=True)
+
+    plt.show()  #

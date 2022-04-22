@@ -5,4 +5,6 @@ scipy
 requests
 psutil
 pyvista
-
+pyvistaqt
+PyQt5
+vtk
