@@ -2,6 +2,7 @@ import sys
 sys.path.append("C:/Users/fnk/PycharmProjects/resipy_fnk/src")
 from resipy import Project
 import geopandas as gpd
+import numpy as np
 import pandas as pd
 import pyvista as pv
 import time
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     # k.saveProject(r'C:/Users/fnk/PycharmProjects/resipy_fnk/src/examples/test/JN_Pseudo3D_Willington.resipy')
 
     # k.loadProject(r'C:/Users/fnk/PycharmProjects/resipy_fnk/src/examples/test/JN_Pseudo3D_Willington.resipy')
-    k.loadProject("C:/Users/fnk/Downloads/malin_psuedo3d (1).resipy")
+    k.loadProject("data/malin_psuedo3d (1).resipy")
     # k.showPseudo3DMesh(cropMesh=True)
 
     import pyvista as pv
@@ -42,38 +43,41 @@ if __name__ == '__main__':
     dem = rasterio.open(fn)
     import matplotlib.pyplot as plt
 
-    im = plt.imshow(dem.read(1), cmap='gist_earth', vmin=0, vmax=500)
-    cbar = plt.colorbar(im)
-    cbar.set_label('m')
-    plt.show()
+
 
     sargs = dict(fmt="%.0f", color='black')
 
     bounds = [6.122e+05, 6.140e+05, 6.65101e+06, 6.6509e+06, 0, 1.760e+02]
-    topo = mesh.warp_by_scalar(scalars="Elevation [m]")  # , factor=15.0)
+    topo = mesh.warp_by_scalar(scalars="Elevation [m]")#, factor=3.0)
     topo = topo.clip('z', invert=False, origin=(0, 0, 0))
     topo = topo.clip_box(bounds)
-    topo = topo.texture_map_to_plane(use_bounds=True, inplace=True)
+    topo = topo.texture_map_to_plane(use_bounds=True)#, inplace=True)
     topo = topo.translate([0, 0, -40])
 
     # map = "Maps\eksport_4417235_07042022\Eksport-nib.tif"
-    map = "Maps\eksport_4417238_07042022\Eksport-nib.tif"
+    # map = "Maps\eksport_4417238_07042022\Eksport-nib.tif"
+    map = "Maps/TEST_EXPORT_FLYFOTO_DEPONIGRENSE.tif"
     src = rasterio.open(map)
+
     array = src.read(1)
 
-    gdf = gpd.read_file("Maps/DEPONIGRENSE.gpkg")
-    gdf_B = gdf.boundary
-    gdf_B.boundary.to_file('deponigrense.shp')
-    gdf = gpd.read_file("Maps/DEPONIGRENSE.gpkg")
-    gdf_lineslines = gg.visualization.create(gdf)
-    gdf.boundary.plot()
+    gdf = gpd.read_file("Maps/DEPONIGRENSE_PUNKTER.dxf")
+    #
+    gdf = gdf.boundary
+    # gdf_B.boundary.to_file('deponigrense.shp')
+    # gdf = gpd.read_file("Maps/DEPONIGRENSE.gpkg")
+    # gdf = gpd.read_file("Maps/Deponigrense.shp")
+    #
+    # gdf_lineslines = gg.visualization.create_delaunay_mesh_from_gdf(gdf)
+    gdf.plot()
     plt.show()
+
     texture = pv.numpy_to_texture(array)
     # topo.translate([0,0,-40])
     ax = pv.Plotter()
     ax.add_mesh(topo, texture=texture)
-    ax.add_lines(gdf.boundary.values)
-    ax.add_mesh(gdf.boundary)
+    # ax.add_lines(gdf.geometry.values)
+    # ax.add_mesh(gdf.boundary)
     # p.add_mesh(mesh=topo, cmap='gist_earth', scalar_bar_args=sargs, clim=[0, 500])
     ax.set_background('white')
     ax.show_grid(color='black')
@@ -83,10 +87,17 @@ if __name__ == '__main__':
     # k.showPseudoInvError(index=0)
     # k.showResults(index=0, edge_color="none", contour=True, sens=True, attr="Resistivity(log10)", vmin=1.2, vmax=2.5, color_map="viridis", sensPrc=0.50, doi=False, doiSens=False)
 
-    k.showResults(index=-1, ax=ax, cropMesh=False, color_map='jet', vmin=0.8, vmax=4, cropMaxDepth=False, contour=True,
+    k.showResults(index=-1, ax=ax, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
                     elec_color="k", elec_size=4., pvshow=True)
-
-    k.showResults(index=0, cropMesh=False, color_map='jet', vmin=0.8, vmax=4, cropMaxDepth=False, contour=True,
-                  elec_color="k", elec_size=4., pvshow=True)
+    # k.showResults(index=0, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+    #               elec_color="k", elec_size=4., pvshow=True)
+    # k.showResults(index=1, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+    #               elec_color="k", elec_size=4., pvshow=True)
+    # k.showResults(index=2, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+    #               elec_color="k", elec_size=4., pvshow=True)
+    # k.showResults(index=3, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+    #               elec_color="k", elec_size=4., pvshow=True)
+    # k.showResults(index=4, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+    #               elec_color="k", elec_size=4., pvshow=True)
 
     plt.show()  #
