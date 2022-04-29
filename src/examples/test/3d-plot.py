@@ -1,11 +1,13 @@
 import sys
-sys.path.append("C:/Users/fnk/PycharmProjects/resipy_fnk/src")
+sys.path.append("C:/Users/erlin/PycharmProjects/resipy-fnk/src")
 from resipy import Project
 import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pyvista as pv
 import time
+import matplotlib
+matplotlib.use("Qt5Agg")
 import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
@@ -41,7 +43,6 @@ if __name__ == '__main__':
     mesh = gg.visualization.read_raster(path=fn, nodata_val=0., name='Elevation [m]')
 
     dem = rasterio.open(fn)
-    import matplotlib.pyplot as plt
 
 
 
@@ -69,11 +70,11 @@ if __name__ == '__main__':
     # gdf = gpd.read_file("Maps/Deponigrense.shp")
     #
     # gdf_lineslines = gg.visualization.create_delaunay_mesh_from_gdf(gdf)
-    gdf.plot()
-    plt.show()
+    # gdf.plot()
+    # plt.show()
 
     texture = pv.numpy_to_texture(array)
-    # topo.translate([0,0,-40])
+
     ax = pv.Plotter()
     ax.add_mesh(topo, texture=texture)
     # ax.add_lines(gdf.geometry.values)
@@ -82,22 +83,11 @@ if __name__ == '__main__':
     ax.set_background('white')
     ax.show_grid(color='black')
     # p.show(cpos='xy')
-    k.showPseudo()
+    # k.showPseudo()
     # k.showInvError(index=0)
     # k.showPseudoInvError(index=0)
     # k.showResults(index=0, edge_color="none", contour=True, sens=True, attr="Resistivity(log10)", vmin=1.2, vmax=2.5, color_map="viridis", sensPrc=0.50, doi=False, doiSens=False)
 
     k.showResults(index=-1, ax=ax, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
                     elec_color="k", elec_size=4., pvshow=True)
-    # k.showResults(index=0, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
-    #               elec_color="k", elec_size=4., pvshow=True)
-    # k.showResults(index=1, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
-    #               elec_color="k", elec_size=4., pvshow=True)
-    # k.showResults(index=2, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
-    #               elec_color="k", elec_size=4., pvshow=True)
-    # k.showResults(index=3, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
-    #               elec_color="k", elec_size=4., pvshow=True)
-    # k.showResults(index=4, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
-    #               elec_color="k", elec_size=4., pvshow=True)
 
-    plt.show()  #
