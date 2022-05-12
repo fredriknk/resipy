@@ -46,16 +46,26 @@ if __name__ == '__main__':
     # k.loadProject(r'C:/Users/fnk/PycharmProjects/resipy_fnk/src/examples/test/JN_Pseudo3D_Willington.resipy')
     k.loadProject("data/malin_psuedo3d (1).resipy")
 
-
+    #
     profile_no = 0
     print(profiles[profile_no])
-    k.showResults(index=profile_no, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
-                  elec_color="k", elec_size=4.)
+    fig,ax = plt.subplots()
+    ax.set_title(profiles[profile_no])
+
+    k.showResults(index=profile_no,ax=ax, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+                   elec_color="k", elec_size=4.)
 
     profile_no = 1
     print(profiles[profile_no])
-    k.showResults(index=profile_no, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+    fig, ax = plt.subplots()
+    ax.set_title(profiles[profile_no])
+
+    k.showResults(index=profile_no, ax=ax, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False,
+                  contour=True,
                   elec_color="k", elec_size=4.)
+
+    k.saveInvPlots(attr='Conductivity(mS/m)',
+                   outputdir="C:\\Users\\fnk\PycharmProjects\\resipy-fnk3\\src\\examples\\test")
 
     """ Displays a 2d mesh and attribute.
 
