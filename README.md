@@ -208,3 +208,5 @@ conda install vtk
 conda install -c conda-forge gemgis
 
 conda install xarray
+
+conda install openpyxl

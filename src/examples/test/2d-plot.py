@@ -1,5 +1,5 @@
 import sys
-sys.path.append("C:/Users/erlin/PycharmProjects/resipy-fnk/src")
+sys.path.append("C:/Users/fnk/PycharmProjects/resipy-fnk3/src")
 from resipy import Project
 import geopandas as gpd
 import numpy as np
