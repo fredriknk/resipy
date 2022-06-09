@@ -155,6 +155,5 @@ if __name__ == '__main__':
 
     xls.close()
 
-    k.showResults(index=-1, ax=ax,attr="c", cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
+    k.showResults(index=-1, ax=ax, cropMesh=False, color_map='jet', vmin=1.2, vmax=2, cropMaxDepth=False, contour=True,
                   elec_color="k", elec_size=4., pvshow=True)
-    k.saveInvPlots(attr='Conductivity(mS/m)',outputdir="C:\\Users\\fnk\PycharmProjects\\resipy-fnk3\\src\\examples\\test")
