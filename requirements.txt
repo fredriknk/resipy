@@ -5,4 +5,8 @@ scipy
 requests
 psutil
 pyvista
-
+geopandas
+gemgis
+rasterio
+PyQt5
+rioxarray
